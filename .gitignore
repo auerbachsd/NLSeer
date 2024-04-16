@@ -16,5 +16,7 @@ _pycache_/
 .vscode
 
 #Folders
-
-
+idmapping_2024_04_16.fasta/*
+mitochondrial_dataset_UniProt_ID.csv/*
+mitochondrial_dataset.csv/*
+full_sequence.ipynb/*
