@@ -30,3 +30,4 @@ finalized_complete_NLS_sequence_table.csv/*
 
 output_dir/*
 seq_pickle_dir/*
+blast_graph_dir/*
