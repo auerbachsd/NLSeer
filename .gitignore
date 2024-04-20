@@ -17,7 +17,16 @@ _pycache_/
 
 #Folders
 idmapping_2024_04_16.fasta
+idmapping_2024_03_23.fasta/*
+idmapping_2024_03_27.fasta/*
+idmapping_2024_03_28.fasta/*
 idmapping_2024_04_16.fasta/*
+
 mitochondrial_dataset_UniProt_ID.csv/*
 mitochondrial_dataset.csv/*
 full_sequence.ipynb/*
+combineed_graphmodel_dataset.csv/*
+finalized_complete_NLS_sequence_table.csv/*
+
+output_dir/*
+seq_pickle_dir/*
