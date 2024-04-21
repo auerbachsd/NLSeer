@@ -1,0 +1,24 @@
+# Byte-compiled 
+__pycache__/
+*.pyc
+*.pyo
+
+# Environments
+.env
+.env2
+.venv
+.venv2
+env/
+venv/
+env2/
+venv2/
+
+
+_pycache_/
+*.py[cod]
+
+.DS_Store
+.vscode
+
+#Folders
+cnn_input_data.pkl
