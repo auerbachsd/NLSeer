@@ -21,4 +21,4 @@ _pycache_/
 .vscode
 
 #Folders
-cnn_input_data.pkl
+Ming_data_extraction/cnn_input_data.pkl 
