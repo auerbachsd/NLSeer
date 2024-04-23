@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import re
+from Bio import SeqIO
+import csv
+
 
 # Function to generate the AnnonEncoded column
 def generate_annotation(row):
@@ -17,4 +20,5 @@ def remove_bux(df3):
     df3 = df3[~df3['Contains_BU_or_X']]
     df3 = df3.drop(columns=['Contains_BU_or_X'])
     return df3
+
 
