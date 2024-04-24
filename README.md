@@ -48,6 +48,7 @@ This dataset was modified in the following ways:
     <li> For the DeepLoc set, UniProt IDs and full sequences were obtained using the same methods. </li>
     <li> Some NLS sequences were updated accordingly during the search process as some of them were identified using antiquated technologies. Others which could not be found using the UniProt search tools or verified in scientific literature were removed from the list. However, only a few of the original sequences were lacking this verification </li>
 
+
 # Approach
 We used different approaches to estimate the contribution of each amino acid in a protein sequence to a potential NLS motif. 
 
