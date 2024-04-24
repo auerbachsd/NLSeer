@@ -1,6 +1,8 @@
-# This section of the code utilizes modified components of Position-Specific Scoring Matrices from Biopython.
-# Biopython is distributed under the Biopython License and BSD 3-Clause License.
-# More details can be found at: https://biopython.org
+"""
+This section of the code utilizes modified components of Position-Specific Scoring Matrices from Biopython.
+Biopython is distributed under the Biopython License and BSD 3-Clause License.
+More details can be found at: https://biopython.org
+"""
 
 import numpy as np
 from collections import defaultdict
