@@ -2,7 +2,7 @@
 
 # Nuclear Localization Signal (NLS) Prediction Project
 
-The purpose of the project is to build a prediction tool that estimates the possibility of nuclear localization signals inside a protein's sequence based on the significance of each amino acid. 
+The purpose of the project is to build a prediction tool that estimates the possibility of nuclear localization signals inside a protein's sequence based on the significance of each amino acid. Nuclear localization signals have been implicated in human diseases and play an important role in many biological pathways.
 
 # Authors
 
