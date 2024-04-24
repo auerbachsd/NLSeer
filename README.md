@@ -60,7 +60,27 @@ The PSSM approach lines up a series of proteins padded to the same length for si
 
 First, the BERT model was used to process the amino acid sequences by truncating their length past the maximum of 512 and padding anything shorter than that to that number. This model utilized an Adam optimizer and a cross-entropy loss function. Due to computational constraints, we ran a very basic version of the model where only two epochs were used and the batch size was two. Even with bare-bones settings, the model was too taxing to run on our computers, so we pivoted towards the CNN model. 
 
-The CNN model involved one-hot encoding - meaning that documented NLS sequences within our dataset were labelled as 1, and everything else was labelled 0 - this includes whole sequences of non-nuclear proteins once they were added to the dataset. Different kernel sizes were selected to further optimize the model. In addition to using the Tensorflow package to generate the CNN model, this was supplemented further by XGBoost, which prevented overfitting and minimized training loss. 
+The CNN model involved one-hot encoding - meaning that documented NLS sequences within our dataset were labelled as 1, and everything else was labelled 0 - this includes whole sequences of non-nuclear proteins once they were added to the dataset. Different kernel sizes were selected to further optimize the model. In addition to using the Tensorflow package to generate the CNN model, this was supplemented further by XGBoost, which prevented overfitting and minimized training loss. The CNN model utilized a greater batch size (32) and more epochs (10). Once the CNN model was trained on the data, XGBoost was used to extract features from the CNN model's predictions and supplement them with more refined data. This process was first done with the nuclear protein-only dataset obtained from the Yamagishi group, and then repeated with a more comprehensive dataset obtained from the DeepLoc team.
+
+
+## Results
+
+### PSSM Construction and Evaluation
+
+
+### BERT Model
+For the initial BERT model without any PSSM input, the overall accuracy was very low: roughly 1%. No further attempts to optimize this model were taken due to lack of capacity on our computers.
+
+### PSSM-CNN Model
+
+When coupled with PSSM data, the CNN model was able to parse out patterns from the NLS signals and fairly reliably predict them: 
+
+<ul>
+    <li> When only nuclear proteins were used as input, the average accuracy between five folds (ten epochs each) was 91.36%. </li>
+    <li> When using the more comprehensive DeepLoc dataset, which includes signals for both the nucleus and other organelles, the overall accuracy dropped to 73.62%. There may have been confirmation bias in the first dataset that may have skewed the accuracy results.
+
+
+
 
 ## Citations
 DeepLoc 2.0: multi-label subcellular localization prediction using protein language models.
