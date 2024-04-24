@@ -83,6 +83,19 @@ When coupled with PSSM data, the CNN model was able to parse out patterns from t
 
 
 ## Citations
-DeepLoc 2.0: multi-label subcellular localization prediction using protein language models.
-Vineet Thumuluri, Jose Juan Almagro Armenteros, Alexander Rosenberg Johansen, Henrik Nielsen, Ole Winther.
-Nucleic Acids Research, Web server issue 2022.
+<ol>
+    <li> DeepLoc 2.0: multi-label subcellular localization prediction using protein language models.
+    Vineet Thumuluri, Jose Juan Almagro Armenteros, Alexander Rosenberg Johansen, Henrik Nielsen, Ole Winther.
+    Nucleic Acids Research, Web server issue 2022. 
+    </li>
+    <li> Kinjo AR, Nakamura H (2008) Nature of Protein Family Signatures: Insights from Singular Value Analysis of Position-Specific Scoring Matrices. PLoS ONE 3(4): e1963. https://doi.org/10.1371/journal.pone.0001963
+    </li>
+    <li>
+    Yamagishi R, Kaneko H. Data from comprehensive analysis of nuclear localization signals. Data Brief. 2015 Dec 12;6:200-3. doi: 10.1016/j.dib.2015.11.064. PMID: 26862559; PMCID: PMC4707185.
+    </li>
+    <li>
+    Ismail, Md, and Md Nazrul Islam Mondal. "Extreme Gradient Boost with CNN: A Deep Learning-Based Approach for Predicting Protein Subcellular Localization." Proceedings of the International Conference on Big Data, IoT, and Machine Learning: BIM 2021. Singapore: Springer Singapore, 2021.
+    </li>
+    <li>
+    Elnaggar A, Heinzinger M, Dallago C, Rehawi G, Wang Y, Jones L, Gibbs T, Feher T, Angerer C, Steinegger M, Bhowmik D, Rost B. ProtTrans: Toward Understanding the Language of Life Through Self-Supervised Learning. IEEE Trans Pattern Anal Mach Intell. 2022 Oct;44(10):7112-7127. doi: 10.1109/TPAMI.2021.3095381. Epub 2022 Sep 14. PMID: 34232869.
+    </li>
