@@ -48,30 +48,30 @@ This dataset was modified in the following ways:
     <li> For the DeepLoc set, UniProt IDs and full sequences were obtained using the same methods. </li>
     <li> Some NLS sequences were updated accordingly during the search process as some of them were identified using antiquated technologies. Others which could not be found using the UniProt search tools or verified in scientific literature were removed from the list. However, only a few of the original sequences were lacking this verification </li>
 
-## Approach
+# Approach
 We used different approaches to estimate the contribution of each amino acid in a protein sequence to a potential NLS motif. 
 
 
-### Position-specific scoring matrix (PSSM)
+## Position-specific scoring matrix (PSSM)
 The PSSM approach lines up a series of proteins padded to the same length for simplicity (1000 residues each) and then assigns a score to each amino acid based on motifs found in the training data. The logic of this approach is that over the course of evolution, groups of amino acids that perform a certain function are conserved over time. This means that proteins that have similar functions tend to have similar sequences, whether for the overall length of the protein or for select motifs in the sequence. Individual amino acids found in these motifs were identified with ~70% accuracy. 
 
 
-### Convolutional neural networks (CNNs) and bidirectional Encoder Representations from Transformers (BERT)
+## Convolutional neural networks (CNNs) and bidirectional Encoder Representations from Transformers (BERT)
 
 First, the BERT model was used to process the amino acid sequences by truncating their length past the maximum of 512 and padding anything shorter than that to that number. This model utilized an Adam optimizer and a cross-entropy loss function. Due to computational constraints, we ran a very basic version of the model where only two epochs were used and the batch size was two. Even with bare-bones settings, the model was too taxing to run on our computers, so we pivoted towards the CNN model. 
 
 The CNN model involved one-hot encoding - meaning that documented NLS sequences within our dataset were labelled as 1, and everything else was labelled 0 - this includes whole sequences of non-nuclear proteins once they were added to the dataset. Different kernel sizes were selected to further optimize the model. In addition to using the Tensorflow package to generate the CNN model, this was supplemented further by XGBoost, which prevented overfitting and minimized training loss. The CNN model utilized a greater batch size (32) and more epochs (10). Once the CNN model was trained on the data, XGBoost was used to extract features from the CNN model's predictions and supplement them with more refined data. This process was first done with the nuclear protein-only dataset obtained from the Yamagishi group, and then repeated with a more comprehensive dataset obtained from the DeepLoc team.
 
 
-## Results
+# Results
 
-### PSSM Construction and Evaluation
+## PSSM Construction and Evaluation
 
 
-### BERT Model
+## BERT Model
 For the initial BERT model without any PSSM input, the overall accuracy was very low: roughly 1%. No further attempts to optimize this model were taken due to lack of capacity on our computers.
 
-### PSSM-CNN Model
+## PSSM-CNN Model
 
 When coupled with PSSM data, the CNN model was able to parse out patterns from the NLS signals and fairly reliably predict them: 
 
@@ -82,20 +82,12 @@ When coupled with PSSM data, the CNN model was able to parse out patterns from t
 
 
 
-## Citations
+# Citations
 <ol>
     <li> DeepLoc 2.0: multi-label subcellular localization prediction using protein language models.
     Vineet Thumuluri, Jose Juan Almagro Armenteros, Alexander Rosenberg Johansen, Henrik Nielsen, Ole Winther.
-    Nucleic Acids Research, Web server issue 2022. 
-    </li>
-    <li> Kinjo AR, Nakamura H (2008) Nature of Protein Family Signatures: Insights from Singular Value Analysis of Position-Specific Scoring Matrices. PLoS ONE 3(4): e1963. https://doi.org/10.1371/journal.pone.0001963
-    </li>
-    <li>
-    Yamagishi R, Kaneko H. Data from comprehensive analysis of nuclear localization signals. Data Brief. 2015 Dec 12;6:200-3. doi: 10.1016/j.dib.2015.11.064. PMID: 26862559; PMCID: PMC4707185.
-    </li>
-    <li>
-    Ismail, Md, and Md Nazrul Islam Mondal. "Extreme Gradient Boost with CNN: A Deep Learning-Based Approach for Predicting Protein Subcellular Localization." Proceedings of the International Conference on Big Data, IoT, and Machine Learning: BIM 2021. Singapore: Springer Singapore, 2021.
-    </li>
-    <li>
-    Elnaggar A, Heinzinger M, Dallago C, Rehawi G, Wang Y, Jones L, Gibbs T, Feher T, Angerer C, Steinegger M, Bhowmik D, Rost B. ProtTrans: Toward Understanding the Language of Life Through Self-Supervised Learning. IEEE Trans Pattern Anal Mach Intell. 2022 Oct;44(10):7112-7127. doi: 10.1109/TPAMI.2021.3095381. Epub 2022 Sep 14. PMID: 34232869.
-    </li>
+    Nucleic Acids Research, Web server issue 2022. </li>
+    <li> Kinjo AR, Nakamura H (2008) Nature of Protein Family Signatures: Insights from Singular Value Analysis of Position-Specific Scoring Matrices. PLoS ONE 3(4): e1963. https://doi.org/10.1371/journal.pone.0001963 </li>
+    <li> Yamagishi R, Kaneko H. Data from comprehensive analysis of nuclear localization signals. Data Brief. 2015 Dec 12;6:200-3. doi: 10.1016/j.dib.2015.11.064. PMID: 26862559; PMCID: PMC4707185. </li>
+    <li> Ismail, Md, and Md Nazrul Islam Mondal. "Extreme Gradient Boost with CNN: A Deep Learning-Based Approach for Predicting Protein Subcellular Localization." Proceedings of the International Conference on Big Data, IoT, and Machine Learning: BIM 2021. Singapore: Springer Singapore, 2021. </li>
+    <li> Elnaggar A, Heinzinger M, Dallago C, Rehawi G, Wang Y, Jones L, Gibbs T, Feher T, Angerer C, Steinegger M, Bhowmik D, Rost B. ProtTrans: Toward Understanding the Language of Life Through Self-Supervised Learning. IEEE Trans Pattern Anal Mach Intell. 2022 Oct;44(10):7112-7127. doi: 10.1109/TPAMI.2021.3095381. Epub 2022 Sep 14. PMID: 34232869. </li>
