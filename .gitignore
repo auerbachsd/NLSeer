@@ -9,7 +9,7 @@ env2/
 venv2/
 
 
-_pycache_/
+**/__pycache__/
 *.py[cod]
 
 .DS_Store
@@ -45,4 +45,3 @@ _pycache_/
 .vscode
 
 #Folders
-Ming_data_extrac
