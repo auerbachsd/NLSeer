@@ -65,12 +65,8 @@ Several types of binary classifiers were used to predict PSSMs:
     <li> Random forest </li>
     <li> Gaussian NB (Naive Bayes) </li>
     <li> MLP (Multi-layer perceptron) classifier </li>
+    <li> Gradient boosting machine </li>
 </ul>
-
-
-
-
-
 
 ## Convolutional neural networks (CNNs) and long short-term memory recurrent neural networks (LSTM-RNN)
 
@@ -84,15 +80,29 @@ A long short-term memory (LSTM) model was then used to predict the presence of N
 
 ## PSSM Construction and Evaluation
 
-PSSMs 
+Using feature vectors extracted from NLS motifs, the following accuracy scores were obtained for the aforementioned classifiers:
 
-## PSSM-CNN Model
+<ul>
+    <li> Logistic regression: 71% </li>
+    <li> SVC (Support Vector Machine Classifier): 69% </li>
+    <li> Decision tree: 72% </li>
+    <li> Random forest: 73% </li>
+    <li> Gaussian NB (Naive Bayes): 70% </li>
+    <li> MLP (Multi-layer perceptron) classifier: 65% </li>
+    <li> Gradient boosting machine: 69% </li>
+</ul>
 
-When coupled with PSSM data, the CNN model was able to parse out patterns from the NLS signals and fairly reliably predict them: 
+The random forest classifier was also tested with the dataframe that contained both the Deeploc dataset and the original Yamagishi nuclear protein dataset. The accuracy score for this test was 89%. 
+
+## PSSM-CNN and PSSM-RNN Models
+
+When coupled with PSSM data, the CNN and RNN modesl was able to parse out patterns from the NLS signals and fairly reliably predict them. However, their accuracy was lower than using the random forest classifier: 
 
 <ul>
     <li> When only nuclear proteins were used as input, the average accuracy between five folds (ten epochs each) was 91.36%. </li>
-    <li> When using the more comprehensive DeepLoc dataset, which includes signals for both the nucleus and other organelles, the overall accuracy dropped to 73.62%. There may have been confirmation bias in the first dataset that may have skewed the accuracy results.
+    <li> However, we expanded the input data to include the more comprehensive DeepLoc dataset, which includes signals for both the nucleus and other organelles, the overall accuracy dropped to 73.62%. There may have been confirmation bias in the model stemming from the first dataset that may have skewed the accuracy results. </li>
+    <li> The LSTM model used the complete dataset with similar settings and obtained an accuracy score of 85.45%. </li>
+</ul>
 
 
 
@@ -106,3 +116,4 @@ When coupled with PSSM data, the CNN model was able to parse out patterns from t
     <li> Yamagishi R, Kaneko H. Data from comprehensive analysis of nuclear localization signals. Data Brief. 2015 Dec 12;6:200-3. doi: 10.1016/j.dib.2015.11.064. PMID: 26862559; PMCID: PMC4707185. </li>
     <li> Ismail, Md, and Md Nazrul Islam Mondal. "Extreme Gradient Boost with CNN: A Deep Learning-Based Approach for Predicting Protein Subcellular Localization." Proceedings of the International Conference on Big Data, IoT, and Machine Learning: BIM 2021. Singapore: Springer Singapore, 2021. </li>
     <li> Elnaggar A, Heinzinger M, Dallago C, Rehawi G, Wang Y, Jones L, Gibbs T, Feher T, Angerer C, Steinegger M, Bhowmik D, Rost B. ProtTrans: Toward Understanding the Language of Life Through Self-Supervised Learning. IEEE Trans Pattern Anal Mach Intell. 2022 Oct;44(10):7112-7127. doi: 10.1109/TPAMI.2021.3095381. Epub 2022 Sep 14. PMID: 34232869. </li>
+</ol>
