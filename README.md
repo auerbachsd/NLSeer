@@ -46,6 +46,7 @@ This dataset was modified in the following ways:
     <li> Through their UniProt IDs, full sequences were added to the dataset using the query system provided on the UniProt website. (URL for reference: https://www.uniprot.org/id-mapping) </li>
     <li> For the DeepLoc set, UniProt IDs and full sequences were obtained using the same methods. </li>
     <li> Some NLS sequences were updated accordingly during the search process as some of them were identified using antiquated technologies. Others which could not be found using the UniProt search tools or verified in scientific literature were removed from the list. However, only a few of the original sequences were lacking this verification </li>
+</ul>
 
 
 # Approach
@@ -64,6 +65,7 @@ Several types of binary classifiers were used to predict PSSMs:
     <li> Random forest </li>
     <li> Gaussian NB (Naive Bayes) </li>
     <li> MLP (Multi-layer perceptron) classifier </li>
+</ul>
 
 
 
