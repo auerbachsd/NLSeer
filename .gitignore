@@ -1,3 +1,27 @@
+# Environments
+.env
+.env2
+.venv
+.venv2
+env/
+venv/
+env2/
+venv2/
+
+
+_pycache_/
+*.py[cod]
+
+.DS_Store
+.vscode
+
+#Folders
+idmapping_2024_04_16.fasta
+idmapping_2024_04_16.fasta/*
+mitochondrial_dataset_UniProt_ID.csv/*
+mitochondrial_dataset.csv/*
+full_sequence.ipynb/*
+output_dir/*
 # Byte-compiled 
 __pycache__/
 *.pyc
@@ -21,4 +45,4 @@ _pycache_/
 .vscode
 
 #Folders
-Ming_data_extraction/cnn_input_data.pkl 
+Ming_data_extrac
