@@ -104,6 +104,10 @@ When coupled with PSSM data, the CNN and RNN models was able to parse out patter
     <li> The LSTM model used the complete dataset with similar settings and obtained an accuracy score of 85.45%. </li>
 </ul>
 
+# Nuclear classification / NLS sequence parsing tool
+
+We have also produced a simple NLS predictor based off of DeepLoc that uses the Logomaker package to generate a graph showing the likelihood of each amino acid contributing to a NLS if the queried protein is classified as "nuclear".  This tool can be found in the Python file "app.py". PSSM scores are generated for the queried protein and then the random forest classifier (see further details below) is used to determine whether or not the queried protein meets the requirements of being a nuclear protein. If determined to be nuclear, Logomaker is used to construct a graph showing the likelihood of each amino acid possibly contributing to a NLS motif based on its PSSM scores.
+
 # Future Directions
 
 <ul>
