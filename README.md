@@ -19,7 +19,7 @@ The purpose of the project is to build a prediction tool that estimates the poss
 
 ## Overview
 
-Nuclear localization signals are fragments of a protein sequence, ranging from anywhere between several amino acids to a couple dozen, that help direct a protein's movement to the nucleus. These signals have been implicated in human diseases and play a major role in many biological functions. However, despite all the advances made towards understanding the proteins that make up our body, our ability to predict (and thus understand) where these signals are remains elusive. Advances in machine learning techniques present the possibility of identifying these signals.
+Nuclear localization signals are fragments of a protein sequence, ranging from anywhere between several amino acids to a couple dozen, that help direct a protein's movement to the nucleus. These signals have been implicated in human diseases and play a major role in many biological functions. However, despite all the advances made towards understanding the proteins that make up our body, advances in machine learning techniques present the possibility of more accurately identifying these signals.
 
 In this project, we have implemented several techniques to construct a model specifically designed to predict NLS signals based on its sequence. These are the position-specific sorting matrix (PSSM), convolutional neural networks (CNN), and long short-term memory recurrent neural networks (LSTM-RNN). The objective is to be able to generate proababilities of having NLS for any given protein.
 
@@ -45,7 +45,7 @@ This dataset was modified in the following ways:
 <ul>
     <li> Through their UniProt IDs, full sequences were added to the dataset using the query system provided on the UniProt website. (URL for reference: https://www.uniprot.org/id-mapping) </li>
     <li> For the DeepLoc set, UniProt IDs and full sequences were obtained using the same methods. </li>
-    <li> Some NLS sequences were updated accordingly during the search process as some of them were identified using antiquated technologies. Others which could not be found using the UniProt search tools or verified in scientific literature were removed from the list. However, only a few of the original sequences were lacking this verification </li>
+    <li> Some NLS sequences were updated accordingly during the search process as some of them were identified using antiquated technologies. Others which could not be found using the UniProt search tools or verified in scientific literature were removed from the list. Fortunately, only a few of the original sequences were lacking this verification. </li>
 </ul>
 
 
@@ -96,7 +96,7 @@ The random forest classifier was also tested with the dataframe that contained b
 
 ## PSSM-CNN and PSSM-RNN Models
 
-When coupled with PSSM data, the CNN and RNN models was able to parse out patterns from the NLS signals and fairly reliably predict them. However, their accuracy was lower than using the random forest classifier: 
+When coupled with PSSM data, the CNN and RNN models were able to parse out patterns from the NLS signals and fairly reliably predict them. However, their accuracy was lower than using the random forest classifier: 
 
 <ul>
     <li> When only nuclear proteins were used as input, the average accuracy between five folds for cross-validation (ten epochs each) was 91.36%. </li>
