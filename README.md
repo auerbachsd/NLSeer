@@ -56,7 +56,7 @@ We used several different approaches to estimate the possibility of a given prot
 ## Position-specific scoring matrix (PSSM)
 The PSSM approach lines up a series of proteins padded to the same length for simplicity (1000 residues each) and then assigns a score to each amino acid based on motifs found in the training data. The logic of this approach is that over the course of evolution, groups of amino acids that perform a certain function are conserved over time. This means that proteins that have similar functions tend to have similar sequences, whether for the overall length of the protein or for select motifs in the sequence. Feature vectors were generated from full protein sequences and were set to 20 residues in length. 
 
-Several types of binary classifiers were used to predict PSSMs:
+Several types of binary classifiers were used to predict the likelihood of containing NLS motifs through PSSMs, with the NLS as the feature vector:
 
 <ul>
     <li> Logistic regression </li>
