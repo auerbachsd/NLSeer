@@ -96,14 +96,20 @@ The random forest classifier was also tested with the dataframe that contained b
 
 ## PSSM-CNN and PSSM-RNN Models
 
-When coupled with PSSM data, the CNN and RNN modesl was able to parse out patterns from the NLS signals and fairly reliably predict them. However, their accuracy was lower than using the random forest classifier: 
+When coupled with PSSM data, the CNN and RNN models was able to parse out patterns from the NLS signals and fairly reliably predict them. However, their accuracy was lower than using the random forest classifier: 
 
 <ul>
-    <li> When only nuclear proteins were used as input, the average accuracy between five folds (ten epochs each) was 91.36%. </li>
-    <li> However, we expanded the input data to include the more comprehensive DeepLoc dataset, which includes signals for both the nucleus and other organelles, the overall accuracy dropped to 73.62%. There may have been confirmation bias in the model stemming from the first dataset that may have skewed the accuracy results. </li>
+    <li> When only nuclear proteins were used as input, the average accuracy between five folds for cross-validation (ten epochs each) was 91.36%. </li>
+    <li> However, we expanded the input data to include the more comprehensive DeepLoc dataset, which includes signals for both the nucleus and other organelles, the overall accuracy dropped to 73.62%. There may have been confirmation bias in the model stemming from the first dataset that may have skewed the accuracy results. On the other hand, when the CNN model was trained with the Deeploc data, the accuracy was 91%, but dropped to 74% when the Yamagishi dataset was used for validation. </li>
     <li> The LSTM model used the complete dataset with similar settings and obtained an accuracy score of 85.45%. </li>
 </ul>
 
+# Future Directions
+
+<ul>
+    <li> Use a graph convolutional network to incorporate node embeddings of graphs generated from contact maps (showing interactions between amino acids) from 3-D structures to see if this affects the likelihood of having a NLS sequence. These node embeddings of graphs would be used as a feature as well as PSSM data and one-hot encoded NLS motifs. </li>
+    <li> Use the BERT (Bidirectional Encoded Representations from Transformers) natural language processing model, specifically tailored for amino acid sequences, to predict for presence of a NLS. This can either be a binary or multi-label classification. </li>
+</ul>
 
 
 
