@@ -37,8 +37,9 @@ Medical researchers specializing in nuclear transport as a mode of disease progr
 </ul>
 
 ## Dataset
-
-The main dataset is a compilation of nuclear localization signals organized by experimental verification that was extracted from the paper by Yamagishi et al in their 2016 paper (see citation below). The Yamagishi dataset has about 1,400 signal-containing proteins. For further enhancement of model capabilities, another dataset compiled by the Danish Department of Health Technology (cited below) including an approximately equal number of proteins containing signals for various organelles in addition to the nucleus were also screened in the model.
+The main dataset comprises proteins with experimentally verified nuclear localization signals, sourced from Yamagishi et al., 2016 (see citation below), and proteins without nuclear localization signals, downloaded from UniProt. It contains 2,714 proteins, half of which are sourced from the Yamagishi dataset. For further enhancement of model capabilities, another dataset compiled by the Danish Department of Health Technology (cited below) including an approximately equal number of proteins containing signals for various organelles in addition to the nucleus were also screened in the model.
+<!-- The main dataset is a compilation of nuclear localization signals organized by experimental verification that was extracted from the paper by Yamagishi et al in their 2016 paper (see citation below).  -->
+<!-- The Yamagishi dataset has about 1,400 signal-containing proteins.  -->
 
 This dataset was modified in the following ways:
 
@@ -54,7 +55,7 @@ We used several different approaches to estimate the possibility of a given prot
 
 
 ## Position-specific scoring matrix (PSSM)
-The PSSM approach lines up a series of proteins padded to the same length for simplicity (1000 residues each) and then assigns a score to each amino acid based on motifs found in the training data. The logic of this approach is that over the course of evolution, groups of amino acids that perform a certain function are conserved over time. This means that proteins that have similar functions tend to have similar sequences, whether for the overall length of the protein or for select motifs in the sequence. Feature vectors were generated from full protein sequences and were set to 20 residues in length. 
+The PSSM approach first lines up the nuclear localization signals in the training dataset and pads them to the same length. Then we compute the log-odds score of each amino acid at each position by comparing its position-specific frequency against the background frequencies. The logic of this approach is that over the course of evolution, groups of amino acids that perform a certain function are conserved over time. This means that proteins that have similar functions tend to have similar sequences, whether for the overall length of the protein or for select motifs in the sequence. Feature vectors were generated from full protein sequences using the PSSM of NLSs and were set to 20 residues in length. 
 
 Several types of binary classifiers were used to predict the likelihood of containing NLS motifs through PSSMs, with the NLS as the feature vector:
 
@@ -71,16 +72,19 @@ Several types of binary classifiers were used to predict the likelihood of conta
 ## Convolutional neural networks (CNNs) and long short-term memory recurrent neural networks (LSTM-RNN)
 
 
-The CNN model involved one-hot encoding - meaning that documented NLS sequences within our dataset were labelled as 1, and everything else was labelled 0 - this includes whole sequences of non-nuclear proteins once they were added to the dataset. Different kernel sizes were selected to further optimize the model. In addition to using the Tensorflow package to generate the CNN model, this was supplemented further by XGBoost, which prevented overfitting and minimized training loss. The CNN model utilized a batch size of 32 and ten epochs. Once the CNN model was trained on the data, XGBoost was used to extract features from the CNN model's predictions and supplement them with more refined data. This process was first done with the nuclear protein-only dataset obtained from the Yamagishi group, and then repeated with a more comprehensive dataset obtained from the DeepLoc team.
+The CNN model involved one-hot encoding - meaning that documented NLS sequences within our dataset were labelled as 1, and everything else was labelled 0. Different kernel sizes were selected to further optimize the model. In addition to using the Tensorflow package to generate the CNN model, this was supplemented further by XGBoost, which prevented overfitting and minimized training loss. The CNN model utilized a batch size of 32 and ten epochs. Once the CNN model was trained on the data, XGBoost was used to extract features from the CNN model's predictions and supplement them with more refined data. This process was first done with the main dataset, and then we further test the trained model on the dataset obtained from the DeepLoc team.
+ <!-- and then repeated with a more comprehensive dataset obtained from the DeepLoc team. -->
 
-A long short-term memory (LSTM) model was then used to predict the presence of NLS using the combined dataset of Yamagishi and DeepLoc data. Similar to before, the maximum length of protein sequence was set to 1,000 and the final input size was set to 20,000 (20 columns for each type of amino acid times 1,000 positions). This model is "short-term" in that it only remembers some of the information as much as required, but this timeframe can be extended to cover the whole dataset. For this model, the retained information is the one-hot encoded NLS motif. 
+ <!-- - this includes whole sequences of non-nuclear proteins once they were added to the dataset.  -->
+
+A long short-term memory (LSTM) model was also used to predict the presence of NLS using the combined dataset of Yamagishi and DeepLoc data. Similar to before, the maximum length of protein sequence was set to 1,000 and the final input size was set to 20,000 (20 columns for each type of amino acid times 1,000 positions). This model is "short-term" in that it only remembers some of the information as much as required, but this timeframe can be extended to cover the whole dataset. For this model, the retained information is the one-hot encoded NLS motif. 
 
 
 # Results
 
 ## PSSM Construction and Evaluation
 
-Using feature vectors extracted from NLS motifs, the following accuracy scores were obtained for the aforementioned classifiers:
+Using feature vectors extracted from the main dataset's proteins via the PSSM of NLSs, the following accuracy scores were obtained for the aforementioned classifiers:
 
 <ul>
     <li> Logistic regression: 71% </li>
@@ -92,21 +96,53 @@ Using feature vectors extracted from NLS motifs, the following accuracy scores w
     <li> Gradient boosting machine: 69% </li>
 </ul>
 
-The random forest classifier was also tested with the dataframe that contained both the Deeploc dataset and the original Yamagishi nuclear protein dataset. The accuracy score for this test was 89%. 
+The random forest classifier was also tested with the dataframe corresponding to the Deeploc dataset. The accuracy score for this test was 89%. 
 
 ## PSSM-CNN and PSSM-RNN Models
 
 When coupled with PSSM data, the CNN and RNN models were able to parse out patterns from the NLS signals and fairly reliably predict them. However, their accuracy was lower than using the random forest classifier: 
 
 <ul>
-    <li> When only nuclear proteins were used as input, the average accuracy between five folds for cross-validation (ten epochs each) was 91.36%. </li>
-    <li> However, we expanded the input data to include the more comprehensive DeepLoc dataset, which includes signals for both the nucleus and other organelles, the overall accuracy dropped to 73.62%. There may have been confirmation bias in the model stemming from the first dataset that may have skewed the accuracy results. On the other hand, when the CNN model was trained with the Deeploc data, the accuracy was 91%, but dropped to 74% when the Yamagishi dataset was used for validation. </li>
+    <li> When using the main dataset's proteins, the average accuracy between five-folds cross-validation (ten epochs each) was 91.36%. </li>
+    <li> However, when the trained classifier was tested on the DeepLoc dataset, which includes signals for various organelles including the nucleus, the accuracy decreased to 73.62%. There may have been confirmation bias in the model stemming from the first dataset that may have skewed the accuracy results. On the other hand, when the CNN model was trained with the Deeploc data, the accuracy was 91%, but dropped to 74% when the Yamagishi dataset was used for validation. </li>
     <li> The LSTM model used the complete dataset with similar settings and obtained an accuracy score of 85.45%. </li>
 </ul>
 
-# Nuclear classification / NLS sequence parsing tool
+# Nuclear classification / NLS sequence parsing web application
 
-We have also produced a simple NLS predictor based off of DeepLoc that uses the Logomaker package to generate a graph showing the likelihood of each amino acid contributing to a NLS if the queried protein is classified as "nuclear".  This tool can be found in the Python file "app.py". PSSM scores are generated for the queried protein and then the random forest classifier (see further details below) is used to determine whether or not the queried protein meets the requirements of being a nuclear protein. If determined to be nuclear, Logomaker is used to construct a graph showing the likelihood of each amino acid possibly contributing to a NLS motif based on its PSSM scores.
+We developed a web application for NLS prediction using Flask, based on the PSSM-Random Forest model. To run the application locally, make sure you have Python installed on your system. Additionally, you'll need to have Flask installed. If Flask isn't installed yet, you can install it via pip:
+```bash
+pip install flask
+```
+## Step-by-Step Instructions
+
+### 1. Open Terminal or Command Prompt:
+- **Windows**: Search for "cmd" or "Command Prompt" in the Start menu.
+- **macOS**: Open "Terminal" from Applications -> Utilities or use Spotlight Search to find "Terminal".
+- **Linux**: Typically find the terminal in your applications menu, or press `Ctrl+Alt+T`.
+
+### 2. Navigate to the Project Directory:
+Change the current working directory to where the Flask application file (`app.py`) is located. Use the `cd` command followed by the path to the directory.
+
+### 3: Run the Flask Application:
+Execute the following command to start the Flask server:
+```bash
+python app.py
+```
+
+### 4: Open the Application in a Web Browser:
+Open your preferred web browser (e.g., Chrome, Firefox, Safari).
+In the address bar, type the following URL and press Enter:
+```
+http://127.0.0.1:5000
+```
+This will direct you to the homepage of the application.
+
+### 5. Using the Application to Predict Nuclear Localization Signals:
+You can enter a protein sequence into the search box. The application will determine whether or not the queried protein meets the requirements of being a nuclear protein. If determined to be nuclear, Logomaker is used to construct a plot showing the likelihood of each amino acid possibly contributing to a NLS motif based on its PSSM scores.
+
+
+<!-- We have also produced a simple NLS predicting web application using Flask, based off of DeepLoc that uses the Logomaker package to generate a graph showing the likelihood of each amino acid contributing to a NLS if the queried protein is classified as "nuclear".  This tool can be found in the Python file "app.py". PSSM scores are generated for the queried protein and then the random forest classifier (see further details below) is used to determine whether or not the queried protein meets the requirements of being a nuclear protein. If determined to be nuclear, Logomaker is used to construct a graph showing the likelihood of each amino acid possibly contributing to a NLS motif based on its PSSM scores. -->
 
 # Future Directions
 
